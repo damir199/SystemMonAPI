@@ -31,7 +31,7 @@ router.put("/:id", (req, res, next) => {
 router.get("", (req, res, next) => {
   Device.find().then(documents => {
     res.status(200).json({
-      message: "Posts fetched successfully!",
+      message: "Devices fetched successfully!",
       devices: documents
     });
   });
