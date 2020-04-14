@@ -1,4 +1,5 @@
 const express = require("express");
+const bcrypt = require("bcrypt");
 
 const User = require("../models/user");
 
@@ -12,6 +13,18 @@ router.get("", (req, res, next) => {
     });
   });
 });
+
+router.post("/login", (req, res, next) => {
+  User.findOne({email: req.body.email}).then(user => {
+    if(!user){
+      return res.status(401).json({
+        message: "Auth Failed"
+      })
+    }
+    bcrypt
+  });
+
+})
 
 //DO NOT NEED THIS CURRENTLY
 /*
