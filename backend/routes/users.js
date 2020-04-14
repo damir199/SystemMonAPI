@@ -21,8 +21,21 @@ router.post("/login", (req, res, next) => {
         message: "Auth Failed"
       })
     }
-    bcrypt
-  });
+    return bcrypt.compare(req.body.password, user.password);
+  }).then(result => {
+    if(!result){
+      return res.status(401).json({
+        message: "Auth Failed"
+      });
+
+    }
+
+  })
+  .catch(err =>{
+    return res.status(401).json({
+      message: "Auth Failed"
+    });
+  })
 
 })
 
