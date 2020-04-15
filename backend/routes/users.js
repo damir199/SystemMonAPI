@@ -9,8 +9,7 @@ const router = express.Router();
 router.get("", (req, res, next) => {
   User.find().then(documents => {
     console.log(documents)
-    res.status(200).json({
-      
+    res.status(200).json({      
       message: "Posts fetched successfully!",
       users: documents
     });
@@ -45,29 +44,39 @@ router.post("/register", (req, res, next) => {
 
 
 router.post("/login", (req, res, next) => {
-  
+  let fetchedUser;
+  //first check the email is valid
   User.findOne({email: req.body.email}).then(user => {
     if(!user){
+      //failure if no email
       return res.status(401).json({
-        message: "Auth Failed 1"
-      })
-    }
-    return bcrypt.compare(req.body.password, user.password);
-  }).then(result => {
-    if(!result){
-      return res.status(401).json({
-        message: "Auth Failed 2 "
+        message: "Auth Failed 1 'Email doesnt match'"
       });
     }
-    const token =jwt.sign({email: user.email, userID: user._id}, "this_should_be_a_LONG_Sercret", {
+    fetchedUser = user;
+    //if user exists, compare the hashed passwords
+    return bcrypt.compare(req.body.password, user.password);
+  })
+  .then(result => {
+    //if password hashes dont match return error
+    if(!result){
+      return res.status(401).json({
+        message: "Auth Failed 2 'Password hash mismatch'"
+      });
+    }
+    //create jwt web token
+    const token = jwt.sign({email: fetchedUser.email, userId: fetchedUser._id}, 
+      "this_should_be_a_LONG_Sercret", 
+      {
       expiresIn: "1h"
-    });
+      });
     res.status(200).json({
       token: token
     });
 
   })
   .catch(err =>{
+    console.log(err)
     return res.status(401).json({
       message: "Auth Failed 3"
     });
