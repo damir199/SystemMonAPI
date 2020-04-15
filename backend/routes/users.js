@@ -8,7 +8,9 @@ const router = express.Router();
 
 router.get("", (req, res, next) => {
   User.find().then(documents => {
+    console.log(documents)
     res.status(200).json({
+      
       message: "Posts fetched successfully!",
       users: documents
     });
@@ -17,10 +19,6 @@ router.get("", (req, res, next) => {
 
 router.post("/register", (req, res, next) => {
   bcrypt.hash(req.body.password, 10)
-  res.status(200).json({
-    message: "Posts fetched successfully!",
-    
-  })
   .then(hash => {
   const user = new User({
     email: req.body.email,
@@ -41,22 +39,24 @@ router.post("/register", (req, res, next) => {
     });
   });
 });
+
  
 
 
 
 router.post("/login", (req, res, next) => {
+  
   User.findOne({email: req.body.email}).then(user => {
     if(!user){
       return res.status(401).json({
-        message: "Auth Failed"
+        message: "Auth Failed 1"
       })
     }
     return bcrypt.compare(req.body.password, user.password);
   }).then(result => {
     if(!result){
       return res.status(401).json({
-        message: "Auth Failed"
+        message: "Auth Failed 2 "
       });
     }
     const token =jwt.sign({email: user.email, userID: user._id}, "this_should_be_a_LONG_Sercret", {
@@ -69,7 +69,7 @@ router.post("/login", (req, res, next) => {
   })
   .catch(err =>{
     return res.status(401).json({
-      message: "Auth Failed"
+      message: "Auth Failed 3"
     });
   })
 
