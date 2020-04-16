@@ -11,7 +11,7 @@ router.get('', (req, res, next) => {
 	User.find().then((documents) => {
 		console.log(documents);
 		res.status(200).json({
-			message: 'Posts fetched successfully!',
+			message: 'Users fetched successfully!',
 			users: documents,
 		});
 	});
@@ -38,7 +38,7 @@ router.post('/register', (req, res, next) => {
 			//if there is an error reply with the error details
 			.catch((err) => {
 				res.status(500).json({
-					message: 'failed',
+					message: 'failed to create user',
 					error: err,
 				});
 			});
@@ -78,6 +78,7 @@ router.post('/login', (req, res, next) => {
 			//return the token as the response
 			res.status(200).json({
 				token: token,
+				expiresIn: 3600,
 			});
 		})
 		//if there is another problem aart from above then throw an error with the error details.
@@ -88,6 +89,5 @@ router.post('/login', (req, res, next) => {
 			});
 		});
 });
-
 
 module.exports = router;
