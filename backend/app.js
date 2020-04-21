@@ -9,10 +9,7 @@ const usersRoutes = require('./routes/users');
 const app = express();
 
 mongoose
-	.connect(
-		'mongodb+srv://Damir:'+ process.env.MONGO_PW + '@cluster0-szzlz.mongodb.net/SystemMonDB?retryWrites=true&w=majority',
-		{ useNewUrlParser: true }
-	)
+	.connect(process.env.MONGO_STRING, { useNewUrlParser: true })
 	.then(() => {
 		console.log('Connected to database!');
 	})

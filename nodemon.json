@@ -1,6 +1,6 @@
 {
     "env":{
-        "MONGO_PW": "Bea27yee1989.",
+        "MONGO_STRING": "mongodb+srv://Damir:Bea27yee1989.@cluster0-szzlz.mongodb.net/SystemMonDB?retryWrites=true&w=majority",       
         "KEY": "this_should_be_a_LONG_Sercret"
     }
 }
