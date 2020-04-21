@@ -55,7 +55,7 @@ exports.userLogin = (req, res, next) => {
 			//if hashes match create jwt web token with 'secret'
 			const token = jwt.sign(
 				{ email: fetchedUser.email, userId: fetchedUser._id },
-				'this_should_be_a_LONG_Sercret',
+				process.env.KEY,
 				{
 					expiresIn: '1h',
 				}
@@ -70,7 +70,7 @@ exports.userLogin = (req, res, next) => {
 		.catch((err) => {
 			console.log(err);
 			return res.status(401).json({
-				message: 'Major Failure - Contact Support',
+				message: 'Major Failure - Contact Support' + process.env.KEY,
 			});
 		});
 }

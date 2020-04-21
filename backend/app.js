@@ -10,7 +10,7 @@ const app = express();
 
 mongoose
 	.connect(
-		'mongodb+srv://Damir:Bea27yee1989.@cluster0-szzlz.mongodb.net/SystemMonDB?retryWrites=true&w=majority',
+		'mongodb+srv://Damir:'+ process.env.MONGO_PW + '@cluster0-szzlz.mongodb.net/SystemMonDB?retryWrites=true&w=majority',
 		{ useNewUrlParser: true }
 	)
 	.then(() => {
