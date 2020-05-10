@@ -70,7 +70,7 @@ exports.userLogin = (req, res, next) => {
 		.catch((err) => {
 			console.log(err);
 			return res.status(401).json({
-				message: 'Major Failure - Contact Support' + process.env.KEY,
+				message: 'Major Failure - Contact Support' ,
 			});
 		});
 }
