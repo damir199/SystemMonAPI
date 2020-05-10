@@ -9,11 +9,13 @@ const usersRoutes = require('./routes/users');
 const app = express();
 
 mongoose
-	.connect(process.env.MONGO_STRING, { useNewUrlParser: true })
+	.connect(process.env.MONGO_STRING, { useNewUrlParser: true,   useUnifiedTopology: true  })
 	.then(() => {
 		console.log('Connected to database!');
 	})
 	.catch(() => {
+		console.log(mongoose.Error);
+		
 		console.log('Connection failed!');
 	});
 
